@@ -1,30 +1,17 @@
-var Grass  = require('./class.grass.js');
-
-module.exports = class Xotaker extends Grass{
+var LivingCreature  = require('./LivingCreature.js');
+module.exports = class Xotaker extends LivingCreature{
     constructor(x, y) {
-        super(x,y);
+        super(x,y)
         this.energy = 5;
     
     }
-    chooseCell(character) {
-        this.getNewDirections();
-        return super.chooseCell(character);
-    }
-    getNewDirections() {
-        this.directions = [
-            [this.x - 1, this.y - 1],
-            [this.x, this.y - 1],
-            [this.x + 1, this.y - 1],
-            [this.x - 1, this.y],
-            [this.x + 1, this.y],
-            [this.x - 1, this.y + 1],
-            [this.x, this.y + 1],
-            [this.x + 1, this.y + 1]
-        ]
-    }
+   
 
     mult() {
-        var empty = random(this.chooseCell(0))
+        var a = this.chooseCell(1);
+        var rand = Math.floor(Math.random() * a.length);
+        var empty = a[rand];
+
         if (empty && this.energy > 10) {
             var newX = empty[0]
             var newY = empty[1]
@@ -35,7 +22,10 @@ module.exports = class Xotaker extends Grass{
     }
 
     move() {
-        var empty = random(this.chooseCell(0))
+        var a = this.chooseCell(1);
+        var rand = Math.floor(Math.random() * a.length);
+        var empty = a[rand];
+
         this.energy--;
         if (empty) {
             var newX = empty[0]
@@ -48,10 +38,16 @@ module.exports = class Xotaker extends Grass{
     }
 
     eat() {
-        var food = random(this.chooseCell(1))
+        var cells = this.chooseCell(1);
+        var rand = Math.floor(Math.random() * cells.length);
+        var food = cells[rand];
+
+
         if (food) {
-            var newX = food[0]
-            var newY = food[1]
+            
+            
+            var newX = food[1]
+            var newY = food[0]
             matrix[newY][newX] = 2
             matrix[this.y][this.x] = 0
             for (var i in grassArr) {

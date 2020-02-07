@@ -1,9 +1,9 @@
-module.exports = class Mard {
+var LivingForm  = require('./LivingCreature2.js');
+var Grass = require("./class.grass.js")
+module.exports = class Mard extends LivingForm{
     constructor(x, y) {
-        this.x = x;
-        this.y = y;
+        super(x,y)
         this.energy = 200;
-        this.multiply = 0;
         this.directions = []
 
     }
@@ -37,33 +37,12 @@ module.exports = class Mard {
 
         ]
     }
-    chooseCell(character, character1) {
-        this.getNewDirections();
-        var found = [];
-        for (var i in this.directions) {
-            var x = this.directions[i][0];
-            var y = this.directions[i][1];
-            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                if (matrix[y][x] == character) {
-                    found.push(this.directions[i])
-                }
-            }
-        }
-        for (var i in this.directions) {
-            var x = this.directions[i][0];
-            var y = this.directions[i][1];
-            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                if (matrix[y][x] == character1) {
-                    found.push(this.directions[i])
-                }
-            }
-        }
-        return found;
-
-    }
+    
  
     move() {
-        var empty = random(this.chooseCell(0, 1))
+        var a = this.chooseCell(1);
+        var rand = Math.floor(Math.random() * a.length);
+        var empty = a[rand];
         this.energy -= 2;
         if (empty) {
             var newX = empty[0]
@@ -78,7 +57,7 @@ module.exports = class Mard {
 
             matrix[newY][newX] = 4
             matrix[this.y][this.x] = 1
-            var newGr = new mainConstrustor_chooseCell(this.x, this.y)
+            var newGr = new Grass(this.x, this.y)
             grassArr.push(newGr)
 
 
@@ -88,8 +67,9 @@ module.exports = class Mard {
         }
     }
     eat() {
-        var food = random(this.chooseCell(3))
-        if (food) {
+        var cells = this.chooseCell(3);
+        var rand = Math.floor(Math.random() * cells.length);
+        var food = cells[rand];        if (food) {
             var newX = food[0]
             var newY = food[1]
             matrix[newY][newX] = 0

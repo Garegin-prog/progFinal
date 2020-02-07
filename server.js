@@ -1,10 +1,9 @@
-var side = 50;
-var grassArr = [];
-var xotakerArr = [];
-var gishatichArr = [];
-var mardArr = [];
-var satanaArr = [];
-var xotachacnoxArr = [];
+ grassArr = [];
+ xotakerArr = [];
+ gishatichArr = [];
+ mardArr = [];
+ satanaArr = [];
+ xotachacnoxArr = [];
 
 var Grass = require("./class.grass.js");
 var Mard = require("./class.mard.js");
@@ -22,7 +21,7 @@ var io = require('socket.io')(server);
 app.use(express.static("."));
 
 app.get('/', function (req, res) {
-   res.redirect('index.html');
+    res.redirect('index.html');
 });
 
 server.listen(3000);
@@ -35,7 +34,7 @@ function matrixGenerator(l) {
         m[i] = [];
         for (var j = 0; j < l; j++) {
             // Stexcel random tiv
-            var rand = Math.floor(Math.random()*100);
+            var rand = Math.floor(Math.random() * 100);
             // Lcnel matrix tokosayin haraberutyamb
             if (rand <= 30) {
                 // Xot
@@ -63,39 +62,87 @@ function matrixGenerator(l) {
         }
     }
     // Veradarcnel matrix
+    console.log(m);
     return m;
+    
+    
 }
 
 // Haytararel global matrix popoxakan
-var matrix = matrixGenerator(25);
+ matrix = matrixGenerator(25);
 
-    for (let y = 0; y < matrix.length; ++y) {
-        for (let x = 0; x < matrix[y].length; ++x) {
-            if (matrix[y][x] == 1) {
-                var gr = new Grass(x, y)
-                grassArr.push(gr)
-            }
-            else if (matrix[y][x] == 2) {
-                var xot = new Xotaker(x, y)
-                xotakerArr.push(xot)
-            }
-            else if (matrix[y][x] == 3) {
-                var gish = new Gishatich(x, y)
-                gishatichArr.push(gish)
-            }
-            else if (matrix[y][x] == 4) {
-                var mar = new Mard(x, y)
-                mardArr.push(mar)
-            }
-            else if (matrix[y][x] == 5) {
-                var st = new Satana(x, y)
-                satanaArr.push(st)
-            }
-            else if (matrix[y][x] == 6) {
-                var xots = new Xotachacnox(x, y)
-                xotachacnoxArr.push(xots)
-            }
+for (let y = 0; y < matrix.length; ++y) {
+    for (let x = 0; x < matrix[y].length; ++x) {
+        if (matrix[y][x] == 1) {
+            var gr = new Grass(x, y)
+            grassArr.push(gr)
         }
-
+        else if (matrix[y][x] == 2) {
+            var xot = new Xotaker(x, y)
+            xotakerArr.push(xot)
+        }
+        else if (matrix[y][x] == 3) {
+            var gish = new Gishatich(x, y)
+            gishatichArr.push(gish)
+        }
+        else if (matrix[y][x] == 4) {
+            var mar = new Mard(x, y)
+            mardArr.push(mar)
+        }
+        else if (matrix[y][x] == 5) {
+            var st = new Satana(x, y)
+            satanaArr.push(st)
+        }
+        else if (matrix[y][x] == 6) {
+            var xots = new Xotachacnox(x, y)
+            xotachacnoxArr.push(xots)
+        }
     }
-    
+
+}
+    function main(){
+for (var i in grassArr) {
+    grassArr[i].mult();
+    if (grassArr.length <= 100) {
+        grassArr[i].multiply = 8;
+    }
+}
+for (var i in xotakerArr) {
+    xotakerArr[i].eat();
+    if (xotakerArr.length <= 5) {
+        var y1 = Math.floor(Math.random(matrix.length));
+        var x1 = Math.floor(Math.random(matrix[0].length));
+        if (matrix[y1][x1] == 0) {
+            matrix[y1][x1] = 2;
+            var great = new Xotaker(x1, y1);
+            xotakerArr.push(great);
+        }
+    }
+}
+
+for (var i in gishatichArr) {
+    gishatichArr[i].eat();
+    if (gishatichArr.length <= 6) {
+        var y1 = floor(random(matrix.length));
+        var x1 = floor(random(matrix[y1].length));
+        if (matrix[y1][x1] == 0 || matrix[y1][x1] == 1 || matrix[y1][x1] == 5) {
+            matrix[y1][x1] = 3;
+            var gish = new Gishatich(x1, y1);
+            gishatichArr.push(gish);
+
+        }
+    }
+}
+for (var i in mardArr) {
+    mardArr[i].eat()
+}
+for (var i in satanaArr) {
+    satanaArr[i].eat()
+}
+for (var i in xotachacnoxArr) {
+    xotachacnoxArr[i].move()
+}
+ io.sockets.emit("matrix", matrix)
+}
+
+setInterval(main, 600)

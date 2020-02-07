@@ -1,13 +1,13 @@
-module.exports = class Satana extends Mard {
+var LivingForm  = require('./LivingCreature2.js');
+var Gishatich = require('./class.predator.js')
+var Xotaker = require('./class.eatgrass.js')
+module.exports = class Satana extends LivingForm {
     constructor(x, y) {
         super(x,y);
         this.energy = 200;
-        this.directions = []
+        
     }
-    chooseCell(character) {
-        this. getNewDirections();
-        return super.chooseCell(character);
-    }
+  
     getNewDirections() {
         this.directions = [
             [this.x - 1, this.y - 1],
@@ -17,7 +17,9 @@ module.exports = class Satana extends Mard {
         ]
     }
     move() {
-        var empty = random(this.chooseCell(0, 3))
+        var a = this.chooseCell(0, 3);
+        var rand = Math.floor(Math.random() * a.length);
+        var empty = a[rand];
         this.energy -= 2;
         if (empty) {
             var newX = empty[0]
@@ -50,7 +52,9 @@ module.exports = class Satana extends Mard {
 
 
     eat() {
-        var food = random(this.chooseCell(1))
+        var cells = this.chooseCell(1);
+        var rand = Math.floor(Math.random() * cells.length);
+        var food = cells[rand];
         if (food) {
             var newX = food[0]
             var newY = food[1]

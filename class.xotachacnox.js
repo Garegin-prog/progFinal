@@ -1,15 +1,14 @@
-module.exports = class Xotachacnox extends Mard{
+var LivingForm  = require('./LivingCreature2.js');
+var Grass = require('./class.grass.js')
+module.exports = class Xotachacnox extends LivingForm{
     constructor(x, y) {
         super(x,y);
         this.energy = 200;
-        this.multiply = 0;
+        
         
 
     }
-    chooseCell(character) {
-        this.getNewDirections();
-        return super.chooseCell(character);
-    }
+  
     getNewDirections() {
         this.directions = [
 
@@ -33,7 +32,9 @@ module.exports = class Xotachacnox extends Mard{
         ]
     }
     move() {
-        var empty = random(this.chooseCell(0, 1))
+        var a = this.chooseCell(0, 1);
+        var rand = Math.floor(Math.random() * a.length);
+        var empty = a[rand];
         this.energy -= 2;
         if (empty) {
             var newX = empty[0]
@@ -48,7 +49,7 @@ module.exports = class Xotachacnox extends Mard{
 
             matrix[newY][newX] = 6
             matrix[this.y][this.x] = 1
-            var newGr = new mainConstrustor_chooseCell(this.x, this.y)
+            var newGr = new Grass(this.x, this.y)
             grassArr.push(newGr)
 
 

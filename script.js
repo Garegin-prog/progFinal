@@ -1,13 +1,14 @@
-
+var side = 25
+var length = 25
+socket.on("matrix",a)
 function setup() {
     frameRate(5);
-    createCanvas(matrix[0].length * side, matrix.length * side);
+    createCanvas(length  * side, length * side);
     background('#acacac');
 }
 
 
-
-function draw() {
+function a(matrix) {
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
             if (matrix[y][x] == 1) {
@@ -38,47 +39,6 @@ function draw() {
         }
     }
 
-    for (var i in grassArr) {
-        grassArr[i].mult();
-        if (grassArr.length <= 100) {
-            grassArr[i].multiply = 8;
-        }
-    }
-    for (var i in xotakerArr) {
-        xotakerArr[i].eat();
-        if (xotakerArr.length <= 5) {
-            var y1 = floor(random(matrix.length));
-            var x1 = floor(random(matrix[y1].length));
-            if (matrix[y1][x1] == 0) {
-                matrix[y1][x1] = 2;
-                var great = new Xotaker(x1, y1);
-                xotakerArr.push(great);
-            }
-        }
-    }
-
-    for (var i in gishatichArr) {
-        gishatichArr[i].eat();
-        if (gishatichArr.length <= 6) {
-            var y1 = floor(random(matrix.length));
-            var x1 = floor(random(matrix[y1].length));
-            if (matrix[y1][x1] == 0 || matrix[y1][x1] == 1 || matrix[y1][x1] == 5) {
-                matrix[y1][x1] = 3;
-                var gish = new Gishatich(x1, y1);
-                gishatichArr.push(gish);
-
-            }
-        }
-    }
-    for (var i in mardArr) {
-        mardArr[i].eat()
-    }
-    for (var i in satanaArr) {
-        satanaArr[i].eat()
-    }
-    for (var i in xotachacnoxArr) {
-        xotachacnoxArr[i].move()
-    }
     
 
 }
