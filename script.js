@@ -1,8 +1,8 @@
 var side = 25
 var length = 25
-var sokets = io();
+var socket = io();
 var matrix = []
-sokets.on("matrix",a)
+socket.on("matrix",a)
 function setup() {
     frameRate(60);
     createCanvas(length  * side, length * side);
@@ -11,7 +11,6 @@ function setup() {
 
 function a(data) {
     matrix = data.matrix
-    console.log(data.matrix)
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
             if (matrix[x][y] == 1) {
@@ -46,6 +45,18 @@ function a(data) {
     
 
 }
-function butoon(){
-    console.log("aa")
+function button(){
+    socket.emit("button")
 }
+function buttoneat(){
+    socket.emit("buttoneat")
+}
+
+
+
+
+
+
+
+
+

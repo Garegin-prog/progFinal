@@ -26,7 +26,7 @@ gishatichArr = [];
 mardArr = [];   
 satanaArr = [];
 xotachacnoxArr = [];
-
+grassHashiv = [];
 
 
 function matrixGenerator(l) {
@@ -132,7 +132,7 @@ function main() {
     for (var i in gishatichArr) {
         gishatichArr[i].eat();
         if (gishatichArr.length <= 6) {
-            var y1 = floor(random(matrix.length));
+            var y1 =Math.floor(Math.random(matrix.length));
             var x1 = floor(random(matrix[y1].length));
             if (matrix[y1][x1] == 0 || matrix[y1][x1] == 1 || matrix[y1][x1] == 5) {
                 matrix[y1][x1] = 3;
@@ -158,9 +158,18 @@ function main() {
 }
 io.on("connection",function(socket){
     socket.on("button", function(){
-        xotachacnoxArr[i].die()
+        for (let i in xotachacnoxArr) {
+            xotachacnoxArr[i].mult()
+        }
     })
 })
 
-
-setInterval(main, 2000)
+io.on("connection",function(socket){
+    socket.on("buttoneat", function(){
+        for (let i in gishatichArr) {
+            gishatichArr[i].mult()
+            console.log("aaaa")
+        }
+    })
+})
+setInterval(main, 1000)
