@@ -1,17 +1,20 @@
 var side = 25
 var length = 25
-socket.on("matrix",a)
+var sokets = io();
+var matrix = []
+sokets.on("matrix",a)
 function setup() {
-    frameRate(5);
+    frameRate(60);
     createCanvas(length  * side, length * side);
     background('#acacac');
 }
 
-
-function a(matrix) {
+function a(data) {
+    matrix = data.matrix
+    console.log(data.matrix)
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
-            if (matrix[y][x] == 1) {
+            if (matrix[x][y] == 1) {
                 fill("green");
             }
             else if (matrix[y][x] == 2) {
@@ -38,7 +41,11 @@ function a(matrix) {
 
         }
     }
+    
 
     
 
+}
+function butoon(){
+    console.log("aa")
 }

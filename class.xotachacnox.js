@@ -58,6 +58,17 @@ module.exports = class Xotachacnox extends LivingForm{
 
         }
     }
+    die() {
 
-
+       
+            matrix[this.y][this.x] = 0
+            for (var i in xotachacnoxArr) {
+                if (xotachacnoxArr[i].x == this.x && xotachacnoxArr[i].y == this.y) {
+                    xotachacnoxArr.splice(i, 1)
+                }
+            }
+        console.log("as")
+        
+    }
 }
+
