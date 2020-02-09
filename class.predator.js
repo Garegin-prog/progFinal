@@ -87,6 +87,7 @@ module.exports = class Gishatich extends LivingCreature {
                 }
             }
         }
+        gishatichmahacac++;
     }
     moveWinter() {
         var a = this.chooseCell(1);

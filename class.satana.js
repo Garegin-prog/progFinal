@@ -88,5 +88,6 @@ module.exports = class Satana extends LivingForm {
                 }
             }
         }
+        satanamahacac++;
     }
 }

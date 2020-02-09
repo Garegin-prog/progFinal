@@ -68,6 +68,7 @@ module.exports = class Xotachacnox extends LivingForm{
             matrix[newY][newX] = 2
             var gsh = new Xotachacnox(newX, newY)
             xotachacnoxArr.push(gsh)
+            xotachacnoxHashiv++;
         }
     }
 }

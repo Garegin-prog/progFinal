@@ -74,22 +74,8 @@ module.exports = class Xotaker extends LivingCreature{
                 }
             }
         }
+        xotakermahacac++;
     }
-    move() {
-        var a = this.chooseCell(1);
-        var rand = Math.floor(Math.random() * a.length);
-        var empty = a[rand];
-
-        this.energy--;
-        this.moveEnergy++;
-        if (empty) {
-            var newX = empty[0]
-            var newY = empty[1]
-            matrix[newY][newX] = 2
-            matrix[this.y][this.x] = 0
-            this.x = newX
-            this.y = newY
-        }
-    }
+    
    
 }

@@ -4,6 +4,7 @@ var Xotaker = require("./class.eatgrass.js");
 var Gishatich = require("./class.predator.js");
 var Satana = require("./class.satana.js");
 var Xotachacnox = require("./class.xotachacnox.js");
+var fs = require('fs')
 
 var express = require('express');
 var app = express();
@@ -31,9 +32,10 @@ grassHashiv = [];
 grassHashiv = 0;
 xotakerHashiv = 0;
 gishatichHashiv = 0;
-mardHashiv = 0;
-satanHashiv = 0;
 xotachacnoxHashiv = 0;
+xotakermahacac = 0;
+gishatichmahacac = 0;
+satanamahacac =0;
 
 
 function matrixGenerator(l) {
@@ -92,21 +94,24 @@ function createDat() {
                 var xot = new Xotaker(x, y)
                 xotakerArr.push(xot)
                 xotakerHashiv++;
+                xotakermahacac
             }
             else if (matrix[y][x] == 3) {
                 var gish = new Gishatich(x, y)
                 gishatichArr.push(gish)
                 gishatichHashiv++;
+                gishatichmahacac++;
             }
             else if (matrix[y][x] == 4) {
                 var mar = new Mard(x, y)
                 mardArr.push(mar)
-                mardHashiv++;
+                
             }
             else if (matrix[y][x] == 5) {
                 var st = new Satana(x, y)
                 satanaArr.push(st)
-                satanHashiv++;
+                satanamahacac++;
+              
             }
             else if (matrix[y][x] == 6) {
                 var xots = new Xotachacnox(x, y)
@@ -119,6 +124,22 @@ function createDat() {
 }
 
 createDat();
+var obj  = {"info" : []};
+function statistika(){
+    var file = "Statics.json";
+    obj.info.push({"cnvac xoteri qankak":grassHashiv})
+    obj.info.push({"cnvac xotakerneri qankak":xotakerHashiv})
+    obj.info.push({"cnvac gishatichmeri qankak":gishatichHashiv})
+    obj.info.push({"cnvac xotachacnoxneri qanak":xotachacnoxHashiv})
+    obj.info.push({"mahacac xotakerneri qanak":xotakermahacac})
+    obj.info.push({"mahacac gishtichneri qanak":gishatichmahacac})
+    obj.info.push({"mahacac satananeri qanak":satanamahacac})
+    console.log(obj)
+    fs.writeFileSync(file, JSON.stringify(obj,null,3));
+    console.log(JSON.stringify(obj));
+    
+}
+setInterval(statistika, 6000)
 
 function main() {
     if(grassArr[0] !== undefined){
@@ -169,6 +190,9 @@ function main() {
         grassCounter: grassHashiv,
         xotakerCounter: xotakerHashiv,
         gishatichCounter: gishatichHashiv,
+        xotakerCounter:xotakermahacac,
+        gishatichCounter:gishatichmahacac,
+        satanaCounter:satanamahacac,
     }
     io.sockets.emit("matrix", sendData)
 }
@@ -239,4 +263,5 @@ io.on("connection",function(socket){
         restart();
     })
 })
+
 setInterval(main, 1000)
