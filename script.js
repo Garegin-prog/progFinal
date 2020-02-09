@@ -2,7 +2,14 @@ var side = 25
 var length = 25
 var socket = io();
 var matrix = []
+let grassCountElement = document.getElementById('grassCount');
+let grassEaterCountElement = document.getElementById('grassEaterCount');
+let gishatichCountElement = document.getElementById('gishatichCount');
+
+
 socket.on("matrix",a)
+socket.on
+
 function setup() {
     frameRate(60);
     createCanvas(length  * side, length * side);
@@ -11,6 +18,9 @@ function setup() {
 
 function a(data) {
     matrix = data.matrix
+    //grassCountElement.innerText = data.grassCounter;
+   // grassEaterCountElement.innerText = data.xotakerCounter;
+   // gishatichCountElement.innerText = data.gishatichCounter;
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
             if (matrix[x][y] == 1) {
@@ -34,6 +44,9 @@ function a(data) {
             else if (matrix[y][x] == 6) {
                 fill("#B50BEC");
             }
+            else if (matrix[y][x] == 6) {
+                fill("#fffafa");
+            }
 
             rect(x * side, y * side, side, side)
 
@@ -48,8 +61,8 @@ function a(data) {
 function button(){
     socket.emit("button")
 }
-function buttoneat(){
-    socket.emit("buttoneat")
+function boom(){
+    socket.emit("boom")
 }
 
 

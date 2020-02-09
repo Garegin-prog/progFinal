@@ -28,6 +28,13 @@ satanaArr = [];
 xotachacnoxArr = [];
 grassHashiv = [];
 
+grassHashiv = 0;
+xotakerHashiv = 0;
+gishatichHashiv = 0;
+mardHashiv = 0;
+satanHashiv = 0;
+xotachacnoxHashiv = 0;
+
 
 function matrixGenerator(l) {
     // Local matrix
@@ -79,26 +86,32 @@ function createDat() {
             if (matrix[y][x] == 1) {
                 var gr = new Grass(x, y)
                 grassArr.push(gr)
+                grassHashiv++;
             }
             else if (matrix[y][x] == 2) {
                 var xot = new Xotaker(x, y)
                 xotakerArr.push(xot)
+                xotakerHashiv++;
             }
             else if (matrix[y][x] == 3) {
                 var gish = new Gishatich(x, y)
                 gishatichArr.push(gish)
+                gishatichHashiv++;
             }
             else if (matrix[y][x] == 4) {
                 var mar = new Mard(x, y)
                 mardArr.push(mar)
+                mardHashiv++;
             }
             else if (matrix[y][x] == 5) {
                 var st = new Satana(x, y)
                 satanaArr.push(st)
+                satanHashiv++;
             }
             else if (matrix[y][x] == 6) {
                 var xots = new Xotachacnox(x, y)
                 xotachacnoxArr.push(xots)
+                xotachacnoxHashiv++;
             }
         }
     
@@ -152,7 +165,10 @@ function main() {
         xotachacnoxArr[i].move()
     }
     var sendData = {
-        matrix: matrix
+        matrix: matrix,
+        grassCounter: grassHashiv,
+        xotakerCounter: xotakerHashiv,
+        gishatichCounter: gishatichHashiv,
     }
     io.sockets.emit("matrix", sendData)
 }
@@ -164,12 +180,63 @@ io.on("connection",function(socket){
     })
 })
 
-io.on("connection",function(socket){
-    socket.on("buttoneat", function(){
-        for (let i in gishatichArr) {
-            gishatichArr[i].mult()
-            console.log("aaaa")
+    io.on("connection", function (socket) {
+    socket.on("boom", function () {
+      
+        
+        for (var y = 5; y < matrix.length; y++) {
+            for (var x = 5; x < matrix.length; x++) {
+                if (x < 20 && y < 20) {
+                    if (matrix[y][x] = 1) {
+                        for (var i in grassArr) {
+                            if (grassArr[i].x == x && grassArr[i].y == y) {
+                                grassArr.splice(i, 1)
+                            }
+                        }
+                    }
+                    if (matrix[y][x] = 2) {
+                        for (var i in xotakerArr) {
+                            if (xotakerArr[i].x == x && xotakerArr[i].y == y) {
+                                xotakerArr.splice(i, 1)
+                            }
+                        }
+                    }
+                    if (matrix[y][x] = 3) {
+                        for (var i in gishatichArr) {
+                            if (gishatichArr[i].x == x && gishatichArr[i].y == y) {
+                                gishatichArr.splice(i, 1)
+                            }
+                        }
+                    }
+                    if (matrix[y][x] = 4) {
+                        for (var i in mardArr) {
+                            if (mardArr[i].x == x && mardArr[i].y == y) {
+                                mardArr.splice(i, 1)
+                            }
+                        }
+                    }
+                    if (matrix[y][x] = 5) {
+                        for (var i in satanaArr) {
+                            if (satanaArr[i].x == x && satanaArr[i].y == y) {
+                                satanaArr.splice(i, 1)
+                            }
+                        }
+                    }
+                    if (matrix[y][x] = 6) {
+                        for (var i in xotachacnoxArr) {
+                            if (xotachacnoxArr[i].x == x && xotachacnoxArr[i].y == y) {
+                                xotachacnoxArr.splice(i, 1)
+                            }
+                        }
+                    }
+                    matrix[y][x] = 0;
+
+                }
+            }
         }
+    })
+    socket.on("noric", function(){
+        restart();
     })
 })
 setInterval(main, 1000)

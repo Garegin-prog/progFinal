@@ -3,6 +3,7 @@ module.exports = class Gishatich extends LivingCreature {
     constructor(x, y) {
         super(x,y);
         this.energy = 10;
+        this.moveEnergy =0;
     }
     chooseCell(character) {
         this.getNewDirections();
@@ -25,6 +26,7 @@ module.exports = class Gishatich extends LivingCreature {
         var a = this.chooseCell(1);
         var rand = Math.floor(Math.random() * a.length);
         var empty = a[rand];
+        gishatichHashiv++;
         if (empty && this.energy > 10) {
             var newX = empty[0]
             var newY = empty[1]
@@ -84,6 +86,22 @@ module.exports = class Gishatich extends LivingCreature {
                     gishatichArr.splice(i, 1)
                 }
             }
+        }
+    }
+    moveWinter() {
+        var a = this.chooseCell(1);
+        var rand = Math.floor(Math.random() * a.length);
+        var empty = a[rand];
+        this.energy -= 2;
+        this.moveEnergy++;
+        if (empty) {
+            var newX = empty[0]
+            var newY = empty[1]
+            matrix[newY][newX] = 3
+            matrix[this.y][this.x] = 0
+
+            this.x = newX
+            this.y = newY
         }
     }
 }

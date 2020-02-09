@@ -3,6 +3,7 @@ module.exports = class Xotaker extends LivingCreature{
     constructor(x, y) {
         super(x,y)
         this.energy = 5;
+        this.moveEnergy =0
     
     }
    
@@ -11,7 +12,7 @@ module.exports = class Xotaker extends LivingCreature{
         var a = this.chooseCell(1);
         var rand = Math.floor(Math.random() * a.length);
         var empty = a[rand];
-
+        xotakerHashiv++;
         if (empty && this.energy > 10) {
             var newX = empty[0]
             var newY = empty[1]
@@ -74,4 +75,21 @@ module.exports = class Xotaker extends LivingCreature{
             }
         }
     }
+    move() {
+        var a = this.chooseCell(1);
+        var rand = Math.floor(Math.random() * a.length);
+        var empty = a[rand];
+
+        this.energy--;
+        this.moveEnergy++;
+        if (empty) {
+            var newX = empty[0]
+            var newY = empty[1]
+            matrix[newY][newX] = 2
+            matrix[this.y][this.x] = 0
+            this.x = newX
+            this.y = newY
+        }
+    }
+   
 }
